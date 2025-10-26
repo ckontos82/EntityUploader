@@ -35,6 +35,11 @@
             button1 = new Button();
             label2 = new Label();
             progressBar = new ProgressBar();
+            lstLog = new ListBox();
+            label3 = new Label();
+            passwordTextBox = new TextBox();
+            usernameTxtBox = new TextBox();
+            label4 = new Label();
             SuspendLayout();
             // 
             // btnBrowse
@@ -45,13 +50,13 @@
             btnBrowse.TabIndex = 0;
             btnBrowse.Text = "Select Folder";
             btnBrowse.UseVisualStyleBackColor = true;
-            btnBrowse.Click += buttonPickFolder_Click;
+            btnBrowse.Click += btnBrowse_Click;
             // 
             // txtFolderPath
             // 
             txtFolderPath.Location = new Point(12, 50);
             txtFolderPath.Name = "txtFolderPath";
-            txtFolderPath.PlaceholderText = "...";
+            txtFolderPath.PlaceholderText = "Selected folder will appear here";
             txtFolderPath.ReadOnly = true;
             txtFolderPath.Size = new Size(819, 23);
             txtFolderPath.TabIndex = 1;
@@ -87,7 +92,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(180, 123);
+            label2.Location = new Point(276, 107);
             label2.Name = "label2";
             label2.Size = new Size(55, 15);
             label2.TabIndex = 6;
@@ -95,16 +100,65 @@
             // 
             // progressBar
             // 
-            progressBar.Location = new Point(180, 141);
+            progressBar.Location = new Point(276, 125);
             progressBar.Name = "progressBar";
-            progressBar.Size = new Size(605, 33);
+            progressBar.Size = new Size(555, 33);
             progressBar.TabIndex = 7;
+            // 
+            // lstLog
+            // 
+            lstLog.FormattingEnabled = true;
+            lstLog.ItemHeight = 15;
+            lstLog.Location = new Point(276, 190);
+            lstLog.Name = "lstLog";
+            lstLog.Size = new Size(555, 454);
+            lstLog.TabIndex = 8;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(276, 172);
+            label3.Name = "label3";
+            label3.Size = new Size(30, 15);
+            label3.TabIndex = 9;
+            label3.Text = "Log:";
+            // 
+            // passwordTextBox
+            // 
+            passwordTextBox.Location = new Point(12, 343);
+            passwordTextBox.Name = "passwordTextBox";
+            passwordTextBox.PlaceholderText = "Password";
+            passwordTextBox.Size = new Size(226, 23);
+            passwordTextBox.TabIndex = 11;
+            passwordTextBox.UseSystemPasswordChar = true;
+            // 
+            // usernameTxtBox
+            // 
+            usernameTxtBox.Location = new Point(12, 314);
+            usernameTxtBox.Name = "usernameTxtBox";
+            usernameTxtBox.PlaceholderText = "Username";
+            usernameTxtBox.Size = new Size(226, 23);
+            usernameTxtBox.TabIndex = 12;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(12, 296);
+            label4.Name = "label4";
+            label4.Size = new Size(124, 15);
+            label4.TabIndex = 13;
+            label4.Text = "Enter your credentials:";
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(869, 703);
+            Controls.Add(label4);
+            Controls.Add(usernameTxtBox);
+            Controls.Add(passwordTextBox);
+            Controls.Add(label3);
+            Controls.Add(lstLog);
             Controls.Add(progressBar);
             Controls.Add(label2);
             Controls.Add(button1);
@@ -128,5 +182,11 @@
         private Button button1;
         private Label label2;
         private ProgressBar progressBar;
+        private ListBox lstLog;
+        private Label label3;
+        private TextBox textBox1;
+        private TextBox passwordTextBox;
+        private TextBox usernameTxtBox;
+        private Label label4;
     }
 }
