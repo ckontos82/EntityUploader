@@ -7,11 +7,17 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
 
-    <AssemblyVersion>0.5.0.2</AssemblyVersion>
-    <InformationalVersion>0.5.0.2</InformationalVersion>
+    <AssemblyVersion>0.9.8.1</AssemblyVersion>
+    <InformationalVersion>0.9.8.1</InformationalVersion>
 
     <Authors>Charalampos Kontos</Authors>
 
+    <ApplicationIcon>strategy_market_evaluation_consumer_trends_research_analysis_icon_266338.ico</ApplicationIcon>
+
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="strategy_market_evaluation_consumer_trends_research_analysis_icon_266338.ico" />
+  </ItemGroup>
 
 </Project>

@@ -32,7 +32,7 @@
             txtFolderPath = new TextBox();
             label1 = new Label();
             btnSend = new Button();
-            button1 = new Button();
+            btnCancel = new Button();
             label2 = new Label();
             progressBar = new ProgressBar();
             lstLog = new ListBox();
@@ -80,19 +80,21 @@
             btnSend.TabIndex = 3;
             btnSend.Text = "Send Data";
             btnSend.UseVisualStyleBackColor = true;
+            btnSend.Click += btnSend_Click;
             // 
-            // button1
+            // btnCancel
             // 
-            button1.Enabled = false;
-            button1.Location = new Point(12, 180);
-            button1.Name = "button1";
-            button1.Size = new Size(90, 33);
-            button1.TabIndex = 4;
-            button1.Text = "Cancel";
-            button1.UseVisualStyleBackColor = true;
+            btnCancel.Enabled = false;
+            btnCancel.Location = new Point(12, 180);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(90, 33);
+            btnCancel.TabIndex = 4;
+            btnCancel.Text = "Cancel";
+            btnCancel.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
+            label2.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label2.AutoSize = true;
             label2.Location = new Point(515, 79);
             label2.Name = "label2";
@@ -102,18 +104,20 @@
             // 
             // progressBar
             // 
+            progressBar.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             progressBar.Location = new Point(515, 98);
             progressBar.Name = "progressBar";
-            progressBar.Size = new Size(586, 24);
+            progressBar.Size = new Size(587, 24);
             progressBar.TabIndex = 7;
             // 
             // lstLog
             // 
+            lstLog.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lstLog.FormattingEnabled = true;
             lstLog.ItemHeight = 15;
             lstLog.Location = new Point(515, 172);
             lstLog.Name = "lstLog";
-            lstLog.Size = new Size(586, 619);
+            lstLog.Size = new Size(587, 619);
             lstLog.TabIndex = 8;
             // 
             // label3
@@ -127,7 +131,7 @@
             // 
             // passwordTextBox
             // 
-            passwordTextBox.Location = new Point(12, 343);
+            passwordTextBox.Location = new Point(12, 350);
             passwordTextBox.Name = "passwordTextBox";
             passwordTextBox.PlaceholderText = "Password";
             passwordTextBox.Size = new Size(271, 23);
@@ -136,7 +140,7 @@
             // 
             // usernameTxtBox
             // 
-            usernameTxtBox.Location = new Point(12, 314);
+            usernameTxtBox.Location = new Point(12, 321);
             usernameTxtBox.Name = "usernameTxtBox";
             usernameTxtBox.PlaceholderText = "Username";
             usernameTxtBox.Size = new Size(271, 23);
@@ -145,7 +149,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(12, 296);
+            label4.Location = new Point(12, 303);
             label4.Name = "label4";
             label4.Size = new Size(124, 15);
             label4.TabIndex = 13;
@@ -153,7 +157,7 @@
             // 
             // button2
             // 
-            button2.Location = new Point(12, 372);
+            button2.Location = new Point(12, 379);
             button2.Name = "button2";
             button2.Size = new Size(117, 41);
             button2.TabIndex = 14;
@@ -163,7 +167,8 @@
             // 
             // button3
             // 
-            button3.Location = new Point(995, 797);
+            button3.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            button3.Location = new Point(996, 797);
             button3.Name = "button3";
             button3.Size = new Size(106, 41);
             button3.TabIndex = 15;
@@ -175,7 +180,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1113, 852);
+            ClientSize = new Size(1114, 852);
             Controls.Add(button3);
             Controls.Add(button2);
             Controls.Add(label4);
@@ -185,11 +190,13 @@
             Controls.Add(lstLog);
             Controls.Add(progressBar);
             Controls.Add(label2);
-            Controls.Add(button1);
+            Controls.Add(btnCancel);
             Controls.Add(btnSend);
             Controls.Add(label1);
             Controls.Add(txtFolderPath);
             Controls.Add(btnBrowse);
+            FormBorderStyle = FormBorderStyle.Fixed3D;
+            MaximizeBox = false;
             Name = "Form1";
             Text = "Entity Uploader";
             Load += Form1_Load;
@@ -203,7 +210,7 @@
         private TextBox txtFolderPath;
         private Label label1;
         private Button btnSend;
-        private Button button1;
+        private Button btnCancel;
         private Label label2;
         private ProgressBar progressBar;
         private ListBox lstLog;

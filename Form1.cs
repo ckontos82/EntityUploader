@@ -1,5 +1,7 @@
 ﻿using Microsoft.VisualBasic;
+using System.Net.Http.Headers;
 using System.Text;
+using static System.Net.WebRequestMethods;
 
 namespace EntityUploader
 {
@@ -11,7 +13,7 @@ namespace EntityUploader
         };
 
         private CancellationTokenSource? _cts;
-        private const string ApiEndpoint = "https://9b7289cf-8d8d-4a03-9f76-64172a825504.mock.pstmn.io";
+        private const string ApiEndpoint = "https://9b7289cf-8d8d-4a03-9f76-64172a825504.mock.pstmn.io/api/upload";
 
         public Form1()
         {
@@ -49,7 +51,7 @@ namespace EntityUploader
                 if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
                     txtFolderPath.Text = dlg.SelectedPath;
-                    lstLog.Items.Add($"{DateTime.Now}: Folder set: {dlg.SelectedPath}");
+                    Log($"Folder set: {dlg.SelectedPath}");
                 }
             }
         }
@@ -67,19 +69,19 @@ namespace EntityUploader
 
             if (response.IsSuccessStatusCode)
             {
-                MessageBox.Show("Authentication succeeded.", 
-                    "Success", 
-                    MessageBoxButtons.OK, 
+                MessageBox.Show("Authentication succeeded.",
+                    "Success",
+                    MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
-                lstLog.Items.Add($"{DateTime.Now}: Authentication succeeded.");
+                Log($"Authentication succeeded.");
             }
             else
             {
-                MessageBox.Show("Authentication failed.", 
-                    "Error", 
-                    MessageBoxButtons.OK, 
-                    MessageBoxIcon.Information);
-                lstLog.Items.Add($"{DateTime.Now}: Authentication failed.");
+                MessageBox.Show("Authentication failed.",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                Log("Authentication failed.");
             }
         }
 
@@ -99,6 +101,129 @@ namespace EntityUploader
 
             if (message == DialogResult.Yes)
                 lstLog.Items.Clear();
+        }
+
+        private async void btnSend_Click(object sender, EventArgs e)
+        {
+
+            var folder = txtFolderPath.Text.Trim();
+            if (!Directory.Exists(folder))
+            {
+                MessageBox.Show("Folder does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            var files = Directory.EnumerateFiles(folder)
+                         .Where(f => !System.IO.File.Exists(f + ".sent"))
+                         .ToList();
+
+            if (files.Count == 0)
+            {
+                MessageBox.Show("No files to send in the selected folder.", 
+                    "Information", 
+                    MessageBoxButtons.OK, 
+                    MessageBoxIcon.Information);
+                return;
+            }
+
+            _cts = new CancellationTokenSource();
+            ToggleUI(isBusy: true);
+
+            try
+            {
+                progressBar.Maximum = files.Count;
+                progressBar.Value = 0;
+
+                Log($"Sending {files.Count} files");
+                int ok = 0, fail = 0;
+
+                foreach (var path in files)
+                {
+                    var fileName = Path.GetFileName(path);
+
+                    try
+                    {
+
+                        await SendFileAsync(path, _cts.Token);
+
+                        // mark as sent with sidecar file
+                        System.IO.File.WriteAllText(path + ".sent", DateTimeOffset.Now.ToString("O"));
+
+                        ok++;
+                        Log($"OK: {fileName}");
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        Log("Canceled by user.");
+                        break;
+                    }
+                    catch (Exception ex)
+                    {
+                        fail++;
+                        Log($"FAIL: {fileName} — {ex.Message}");
+                    }
+                    finally
+                    {
+                        if (progressBar.Value < progressBar.Maximum)
+                            progressBar.Value += 1;
+                    }
+
+                    _cts.Token.ThrowIfCancellationRequested();
+                }
+
+                Log($"Done. Success: {ok}, Failed: {fail}");
+            }
+            finally
+            {
+                ToggleUI(isBusy: false);
+                _cts?.Dispose();
+                _cts = null;
+            }
+        }
+
+        private async Task SendFileAsync(string filePath, CancellationToken ct)
+        {
+            using var form = new MultipartFormDataContent();
+
+            var fileContent = new StreamContent(System.IO.File.OpenRead(filePath));
+            fileContent.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+            form.Add(fileContent, "file", Path.GetFileName(filePath));
+
+            using var resp = await httpClient.PostAsync(ApiEndpoint, form, ct);
+            if (!resp.IsSuccessStatusCode)
+            {
+                var body = await resp.Content.ReadAsStringAsync(ct);
+                throw new InvalidOperationException($"HTTP {(int)resp.StatusCode} {resp.ReasonPhrase}. Body: {TrimForLog(body)}");
+            }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            // signal cooperative cancellation
+            _cts?.Cancel();
+            Log("Cancel requested…");
+            // UI stays disabled until the loop unwinds; then ToggleUi(false) will run in finally
+        }
+
+        private static string TrimForLog(string s, int max = 300)
+        {
+            if (string.IsNullOrWhiteSpace(s)) return string.Empty;
+            s = s.Replace("\r", " ").Replace("\n", " ");
+            return s.Length <= max ? s : s.Substring(0, max) + "…";
+        }
+
+        private void Log(string message)
+        {
+            lstLog.Items.Add($"[{DateTime.Now:HH:mm:ss}] {message}");
+            lstLog.TopIndex = lstLog.Items.Count - 1; // auto-scroll
+        }
+
+        private void ToggleUI(bool isBusy)
+        {
+            btnBrowse.Enabled = !isBusy;
+            btnSend.Enabled = !isBusy && Directory.Exists(txtFolderPath.Text);
+            btnCancel.Enabled = isBusy;
+            UseWaitCursor = isBusy;
         }
     }
 }
