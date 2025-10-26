@@ -17,12 +17,10 @@ namespace EntityUploader
         {
             InitializeComponent();
 
-            // Wire events ONCE
             usernameTxtBox.TextChanged += usernameTxtBox_TextChanged;
             passwordTextBox.TextChanged += passwordTextBox_TextChanged;
             txtFolderPath.TextChanged += txtFolderPath_TextChanged;
 
-            // Initial UI state
             UpdateSendButtonEnabled();
 
             if (progressBar != null)
@@ -50,18 +48,14 @@ namespace EntityUploader
 
                 if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
-                    txtFolderPath.Text = dlg.SelectedPath; // fires TextChanged -> updates button
-                    lstLog.Items.Add($"Folder set: {dlg.SelectedPath}");
-                    // Optional explicit call (safe but not required):
-                    // UpdateSendButtonEnabled();
+                    txtFolderPath.Text = dlg.SelectedPath;
+                    lstLog.Items.Add($"{DateTime.Now}: Folder set: {dlg.SelectedPath}");
                 }
             }
         }
 
         private async void button2_Click(object sender, EventArgs e)
         {
-            lstLog.Items.Add("Auth button clicked…");
-
             var request = new HttpRequestMessage(HttpMethod.Get, "https://postman-echo.com/basic-auth");
             var username = usernameTxtBox.Text;
             var password = passwordTextBox.Text;
@@ -73,20 +67,38 @@ namespace EntityUploader
 
             if (response.IsSuccessStatusCode)
             {
-                lstLog.Items.Add("Authentication succeeded.");
+                MessageBox.Show("Authentication succeeded.", 
+                    "Success", 
+                    MessageBoxButtons.OK, 
+                    MessageBoxIcon.Information);
+                lstLog.Items.Add($"{DateTime.Now}: Authentication succeeded.");
             }
             else
             {
-                lstLog.Items.Add("Authentication failed.");
+                MessageBox.Show("Authentication failed.", 
+                    "Error", 
+                    MessageBoxButtons.OK, 
+                    MessageBoxIcon.Information);
+                lstLog.Items.Add($"{DateTime.Now}: Authentication failed.");
             }
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-        }   
+        }
 
         private void txtFolderPath_TextChanged(object? sender, EventArgs e) => UpdateSendButtonEnabled();
         private void usernameTxtBox_TextChanged(object? sender, EventArgs e) => UpdateSendButtonEnabled();
         private void passwordTextBox_TextChanged(object? sender, EventArgs e) => UpdateSendButtonEnabled();
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var message = MessageBox.Show("Are you sure you want to clear the log?", "Confirm Clear Log",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (message == DialogResult.Yes)
+                lstLog.Items.Clear();
+        }
     }
 }

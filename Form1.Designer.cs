@@ -41,6 +41,7 @@
             usernameTxtBox = new TextBox();
             label4 = new Label();
             button2 = new Button();
+            button3 = new Button();
             SuspendLayout();
             // 
             // btnBrowse
@@ -59,7 +60,7 @@
             txtFolderPath.Name = "txtFolderPath";
             txtFolderPath.PlaceholderText = "Selected folder will appear here";
             txtFolderPath.ReadOnly = true;
-            txtFolderPath.Size = new Size(819, 23);
+            txtFolderPath.Size = new Size(850, 23);
             txtFolderPath.TabIndex = 1;
             // 
             // label1
@@ -103,7 +104,7 @@
             // 
             progressBar.Location = new Point(276, 125);
             progressBar.Name = "progressBar";
-            progressBar.Size = new Size(555, 33);
+            progressBar.Size = new Size(586, 33);
             progressBar.TabIndex = 7;
             // 
             // lstLog
@@ -112,7 +113,7 @@
             lstLog.ItemHeight = 15;
             lstLog.Location = new Point(276, 190);
             lstLog.Name = "lstLog";
-            lstLog.Size = new Size(555, 454);
+            lstLog.Size = new Size(586, 499);
             lstLog.TabIndex = 8;
             // 
             // label3
@@ -160,11 +161,22 @@
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
             // 
+            // button3
+            // 
+            button3.Location = new Point(756, 692);
+            button3.Name = "button3";
+            button3.Size = new Size(106, 41);
+            button3.TabIndex = 15;
+            button3.Text = "Clear Log";
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(869, 703);
+            ClientSize = new Size(895, 770);
+            Controls.Add(button3);
             Controls.Add(button2);
             Controls.Add(label4);
             Controls.Add(usernameTxtBox);
@@ -201,5 +213,6 @@
         private TextBox usernameTxtBox;
         private Label label4;
         private Button button2;
+        private Button button3;
     }
 }
