@@ -155,6 +155,7 @@ namespace EntityUploader
                     catch (OperationCanceledException)
                     {
                         Log("Canceled by user.");
+                        
                         break;
                     }
                     catch (Exception ex)
@@ -197,7 +198,7 @@ namespace EntityUploader
             }
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private async void btnCancel_Click(object sender, EventArgs e)
         {
             // signal cooperative cancellation
             _cts?.Cancel();
