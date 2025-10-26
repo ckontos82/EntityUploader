@@ -7,8 +7,8 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
 
-    <AssemblyVersion>0.9.8.1</AssemblyVersion>
-    <InformationalVersion>0.9.9.0</InformationalVersion>
+    <AssemblyVersion>0.9.9.1</AssemblyVersion>
+    <InformationalVersion>0.9.9.1</InformationalVersion>
 
     <Authors>Charalampos Kontos</Authors>
 

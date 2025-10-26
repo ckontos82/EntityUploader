@@ -155,7 +155,7 @@ namespace EntityUploader
                     catch (OperationCanceledException)
                     {
                         Log("Canceled by user.");
-                        
+                        progressBar.Value = progressBar.Maximum;
                         break;
                     }
                     catch (Exception ex)
