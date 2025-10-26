@@ -56,17 +56,17 @@
             // 
             // txtFolderPath
             // 
-            txtFolderPath.Location = new Point(12, 50);
+            txtFolderPath.Location = new Point(12, 27);
             txtFolderPath.Name = "txtFolderPath";
             txtFolderPath.PlaceholderText = "Selected folder will appear here";
             txtFolderPath.ReadOnly = true;
-            txtFolderPath.Size = new Size(850, 23);
+            txtFolderPath.Size = new Size(815, 23);
             txtFolderPath.TabIndex = 1;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(12, 32);
+            label1.Location = new Point(12, 9);
             label1.Name = "label1";
             label1.Size = new Size(90, 15);
             label1.TabIndex = 2;
@@ -94,7 +94,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(276, 107);
+            label2.Location = new Point(515, 79);
             label2.Name = "label2";
             label2.Size = new Size(55, 15);
             label2.TabIndex = 6;
@@ -102,24 +102,24 @@
             // 
             // progressBar
             // 
-            progressBar.Location = new Point(276, 125);
+            progressBar.Location = new Point(515, 98);
             progressBar.Name = "progressBar";
-            progressBar.Size = new Size(586, 33);
+            progressBar.Size = new Size(586, 24);
             progressBar.TabIndex = 7;
             // 
             // lstLog
             // 
             lstLog.FormattingEnabled = true;
             lstLog.ItemHeight = 15;
-            lstLog.Location = new Point(276, 190);
+            lstLog.Location = new Point(515, 172);
             lstLog.Name = "lstLog";
-            lstLog.Size = new Size(586, 499);
+            lstLog.Size = new Size(586, 619);
             lstLog.TabIndex = 8;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(276, 172);
+            label3.Location = new Point(515, 154);
             label3.Name = "label3";
             label3.Size = new Size(30, 15);
             label3.TabIndex = 9;
@@ -130,7 +130,7 @@
             passwordTextBox.Location = new Point(12, 343);
             passwordTextBox.Name = "passwordTextBox";
             passwordTextBox.PlaceholderText = "Password";
-            passwordTextBox.Size = new Size(226, 23);
+            passwordTextBox.Size = new Size(271, 23);
             passwordTextBox.TabIndex = 11;
             passwordTextBox.UseSystemPasswordChar = true;
             // 
@@ -139,7 +139,7 @@
             usernameTxtBox.Location = new Point(12, 314);
             usernameTxtBox.Name = "usernameTxtBox";
             usernameTxtBox.PlaceholderText = "Username";
-            usernameTxtBox.Size = new Size(226, 23);
+            usernameTxtBox.Size = new Size(271, 23);
             usernameTxtBox.TabIndex = 12;
             // 
             // label4
@@ -163,7 +163,7 @@
             // 
             // button3
             // 
-            button3.Location = new Point(756, 692);
+            button3.Location = new Point(995, 797);
             button3.Name = "button3";
             button3.Size = new Size(106, 41);
             button3.TabIndex = 15;
@@ -175,7 +175,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(895, 770);
+            ClientSize = new Size(1113, 852);
             Controls.Add(button3);
             Controls.Add(button2);
             Controls.Add(label4);
