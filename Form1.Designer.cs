@@ -208,7 +208,6 @@
         private ProgressBar progressBar;
         private ListBox lstLog;
         private Label label3;
-        private TextBox textBox1;
         private TextBox passwordTextBox;
         private TextBox usernameTxtBox;
         private Label label4;
