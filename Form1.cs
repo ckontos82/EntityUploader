@@ -1,4 +1,7 @@
-﻿namespace EntityUploader
+﻿using Microsoft.VisualBasic;
+using System.Text;
+
+namespace EntityUploader
 {
     public partial class Form1 : Form
     {
@@ -52,6 +55,29 @@
                     // Optional explicit call (safe but not required):
                     // UpdateSendButtonEnabled();
                 }
+            }
+        }
+
+        private async void button2_Click(object sender, EventArgs e)
+        {
+            lstLog.Items.Add("Auth button clicked…");
+
+            var request = new HttpRequestMessage(HttpMethod.Get, "https://postman-echo.com/basic-auth");
+            var username = usernameTxtBox.Text;
+            var password = passwordTextBox.Text;
+            var bytes = Encoding.ASCII.GetBytes($"{username}:{password}");
+            var base64 = Convert.ToBase64String(bytes);
+
+            httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", base64);
+            var response = await httpClient.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                lstLog.Items.Add("Authentication succeeded.");
+            }
+            else
+            {
+                lstLog.Items.Add("Authentication failed.");
             }
         }
 

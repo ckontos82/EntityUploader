@@ -40,6 +40,7 @@
             passwordTextBox = new TextBox();
             usernameTxtBox = new TextBox();
             label4 = new Label();
+            button2 = new Button();
             SuspendLayout();
             // 
             // btnBrowse
@@ -149,11 +150,22 @@
             label4.TabIndex = 13;
             label4.Text = "Enter your credentials:";
             // 
+            // button2
+            // 
+            button2.Location = new Point(12, 372);
+            button2.Name = "button2";
+            button2.Size = new Size(117, 41);
+            button2.TabIndex = 14;
+            button2.Text = "Test Connection";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(869, 703);
+            Controls.Add(button2);
             Controls.Add(label4);
             Controls.Add(usernameTxtBox);
             Controls.Add(passwordTextBox);
@@ -188,5 +200,6 @@
         private TextBox passwordTextBox;
         private TextBox usernameTxtBox;
         private Label label4;
+        private Button button2;
     }
 }
